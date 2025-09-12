@@ -1,12 +1,13 @@
 "use client";
 
+import { PostDto } from "@/type/post";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
     
     const { id } = useParams();
-    const[post, setPost] = useState<{id: number, title: string, content: string} | null>(null);
+    const[post, setPost] = useState<PostDto | null>(null);
 
     useEffect(() => {
         const post = fetch(`http://localhost:8080/api/v1/posts/${id}`)
@@ -25,8 +26,10 @@ export default function Home() {
             <div>
             <h1>글 상세보기</h1>
             <div>번호 : {post.id}</div>
+          
             <div>제목 : {post.title}</div>
             <div>내용 : {post.content}</div>
+            <div>작성일자 : {post.createDate}  || 수정일자 : {post.modifyDate}</div>
             </div>
            )}
         </div>

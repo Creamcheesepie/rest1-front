@@ -1,10 +1,11 @@
 "use client";
 
+import { PostDto } from "@/type/post";
 import { useEffect, useState } from "react";
-
+import Link from "next/link";
 export default function Home() {
 
-    const [posts, setPosts]  = useState<{id: number, title: string}[]>([]);
+    const [posts, setPosts]  = useState<PostDto[]>([]);
 
     useEffect(() => {
         const posts = fetch("http://localhost:8080/api/v1/posts")
@@ -25,7 +26,7 @@ export default function Home() {
             <ul>
                 {posts.map((post) =>( // 명시가 가능하다.
                     <li key={post.id} >
-                        {post.id} : {post.title}
+                        <Link href={`/posts/${post.id}`}>{post.id} : {post.title}</Link>
                     </li>
                 ))}
             </ul>
