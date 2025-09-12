@@ -13,7 +13,6 @@ export default function Home() {
         const post = fetch(`${baseUrl}/api/v1/posts/${id}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             setPost(data);
         });
     },[])
