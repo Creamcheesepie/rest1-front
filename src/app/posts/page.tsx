@@ -21,10 +21,10 @@ export default function Home() {
         <div className="flex flex-col gap 6">
             <h1>글 목록</h1>
             {posts.length === 0 && <div>Loading...</div>}
-            { posts.length > 0 && (
+            {posts.length > 0 && (
             <ul>
                 {posts.map((post) =>( // 명시가 가능하다.
-                    <li key={post.id}>
+                    <li key={post.id} >
                         {post.id} : {post.title}
                     </li>
                 ))}
