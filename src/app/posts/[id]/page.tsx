@@ -8,9 +8,9 @@ export default function Home() {
     
     const { id } = useParams();
     const[post, setPost] = useState<PostDto | null>(null);
-
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     useEffect(() => {
-        const post = fetch(`http://localhost:8080/api/v1/posts/${id}`)
+        const post = fetch(`${baseUrl}/api/v1/posts/${id}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data);
@@ -26,7 +26,6 @@ export default function Home() {
             <div>
             <h1>글 상세보기</h1>
             <div>번호 : {post.id}</div>
-          
             <div>제목 : {post.title}</div>
             <div>내용 : {post.content}</div>
             <div>작성일자 : {post.createDate}  || 수정일자 : {post.modifyDate}</div>
