@@ -20,7 +20,7 @@ export default function Home() {
         <div className="flex flex-col gap 6">
             <h1>글 목록</h1>
             <ul>
-                {posts.map((post) =>(
+                {posts.map((post : {id: number, title: string}) =>( // 명시가 가능하다.
                     <li key={post.id}>
                         {post.id} : {post.title}
                     </li>
