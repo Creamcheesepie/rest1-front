@@ -40,7 +40,12 @@ export default function Home() {
         })
         .then((data) => {
             alert(data.msg);
-            router.refresh();
+
+            if(postComments === null) return;
+            // 리렌더링을 위한 댓글 배열 교체
+            setPostComments(
+                postComments.filter((postComment) => postComment.id !== commentId)
+            )
         })
     }
    
@@ -71,7 +76,10 @@ export default function Home() {
                         <button type="button" className="border p-2 rounded">
                             수정
                         </button>
-                        <button type="button" className="border p-2 rounded" onClick={() => {
+                        <button 
+                            type="button"
+                            className="border p-2 rounded" 
+                            onClick={() => {
                             deletePostComment(postComment.id);
                         }}>
                             삭제
