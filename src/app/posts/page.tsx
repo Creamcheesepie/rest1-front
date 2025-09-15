@@ -3,13 +3,13 @@
 import { PostDto } from "@/type/post";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { fetchApi } from "@/lib/client";
 export default function Home() {
 
     const [posts, setPosts]  = useState<PostDto[]>([]);
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     useEffect(() => {
-        const posts = fetch(`${baseUrl}/api/v1/posts`)
-        .then((res) => res.json())
+        const posts = fetchApi("/api/v1/posts")
         .then((data) => {
             setPosts(data);
         });
@@ -30,6 +30,9 @@ export default function Home() {
                 ))}
             </ul>
             )}
+            <div>
+                <Link href="/posts/write">새 글 작성</Link>
+            </div>
         </div>
    
     );
