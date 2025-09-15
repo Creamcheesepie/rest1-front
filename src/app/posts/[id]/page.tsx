@@ -11,7 +11,7 @@ export default function Home() {
     const[post, setPost] = useState<PostDto | null>(null);
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     useEffect(() => {
-        const post = fetchApi("/api/v1/posts/${id}")
+        const post = fetchApi(`/api/v1/posts/${id}`)
         .then((data) => {
             setPost(data);
         });
