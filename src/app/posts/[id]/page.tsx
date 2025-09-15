@@ -19,7 +19,7 @@ export default function Home() {
    
 
     return (
-        <div className="flex-col gap-8">
+        <div>
            {post === null && <div>Loading...</div>}
            {post !== null && (
             <div>

@@ -17,8 +17,8 @@ export default function Home() {
    
 
     return (
-  
-        <div className="flex flex-col gap 6">
+        <div>
+          
             <h1>글 목록</h1>
             {posts.length === 0 && <div>Loading...</div>}
             {posts.length > 0 && (
@@ -30,6 +30,7 @@ export default function Home() {
                 ))}
             </ul>
             )}
+    
             <div>
                 <Link href="/posts/write">새 글 작성</Link>
             </div>
