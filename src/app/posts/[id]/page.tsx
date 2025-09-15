@@ -45,12 +45,10 @@ export default function Home() {
                 <div>작성일자 : {post.createDate}  || 수정일자 : {post.modifyDate}</div>
             </div>
             <div className="flex gap-4">
-                <Link className="border p-2 rounded" href={'/posts/${post.id}/edit}'}>수정</Link>
+                <Link className="border p-2 rounded" href={`/posts/${post.id}/edit`}>수정</Link>
                     <button className="border p-2 rounded" onClick={() => deletePost(post.id)}>삭제</button>
             </div>
-        </>
-        
-   
+        </>   
     );
   }
   
