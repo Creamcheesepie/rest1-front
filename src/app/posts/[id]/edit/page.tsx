@@ -49,7 +49,7 @@ export default function Home() {
         })
         .then((data) => {
             alert(data.msg);
-            router.replace(`/posts/${data.data.postDto.id}`);
+            router.replace(`/posts`);
         });
     };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchApi } from "@/lib/client";
-import { PostDto } from "@/type/post";
+import { PostCommentDto, PostDto } from "@/type/post";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -10,18 +10,18 @@ import { useRouter } from "next/navigation";
 export default function Home() {
     
     const router = useRouter();
-    const { id } = useParams();
+    const { id : postId} = useParams();
     const[post, setPost] = useState<PostDto | null>(null);
-    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    useEffect(() => {
-        const post = fetchApi(`/api/v1/posts/${id}`)
-        .then((data) => {
-            setPost(data);
-        });
-    },[])
+    
+    const [postComments, setPostComments]  = useState<PostCommentDto[] | null>(null);
 
-    const deletePost = (id: number) => {
-        fetchApi(`/api/v1/posts/${id}`,
+    useEffect(() => {
+        fetchApi(`/api/v1/posts/${postId}`).then(setPost);
+        fetchApi(`/api/v1/posts/${postId}/comments`).then(setPostComments);
+    },[]);
+
+    const deletePost = (postId: number) => {
+        fetchApi(`/api/v1/posts/${postId}`,
             {method : "DELETE"}
         )
         .then((data) => {
@@ -32,6 +32,16 @@ export default function Home() {
 
     if(post === null) {
         return <div>Loading...</div>;
+    }
+
+    const deletePostComment = (commentId : number) =>{
+        fetchApi(`/api/v1/posts/${postId}/comments/${commentId}`,{
+            method : "DELETE"
+        })
+        .then((data) => {
+            alert(data.msg);
+            router.refresh();
+        })
     }
    
 
@@ -48,6 +58,28 @@ export default function Home() {
                 <Link className="border p-2 rounded" href={`/posts/${post.id}/edit`}>수정</Link>
                     <button className="border p-2 rounded" onClick={() => deletePost(post.id)}>삭제</button>
             </div>
+
+            <h2 className="p-2"> 댓글 목록</h2>
+
+            {postComments === null && <div>Loading</div>}
+            {postComments !== null && postComments.length === 0  && <div>댓글이 없습니다.</div>}
+            {postComments !== null && postComments.length > 0 && (
+                <ul className="gap-2">
+                {postComments.map((postComment) =>( // 명시가 가능하다.
+                    <li key={postComment.id} className="flex gap-2 items-center" >
+                        <span>{postComment.id} : {postComment.content}</span>
+                        <button type="button" className="border p-2 rounded">
+                            수정
+                        </button>
+                        <button type="button" className="border p-2 rounded" onClick={() => {
+                            deletePostComment(postComment.id);
+                        }}>
+                            삭제
+                        </button>
+                    </li>
+                ))}
+            </ul>
+            )}
         </>   
     );
   }
