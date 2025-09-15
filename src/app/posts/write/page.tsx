@@ -22,6 +22,12 @@ export default function Home() {
             alert("제목을 입력해주세요.");
             titleInput.focus();
         }
+        if(titleInput.value.lenght < 2){
+            alert("제목은 2글자 이상입니다.");
+            titleInput.focus();
+        }
+
+        if(titleInput.value.lenght )
 
         if(contentText.value.length === 0){
             alert("제목을 입력해주세요.");
@@ -47,9 +53,13 @@ export default function Home() {
             <h1>새 글 작성</h1>
             <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
                 <input className="border border-gray-3000 rounded p-2"
-                 type="text" name="title" placeholder="제목"/>
+                type="text" name="title" placeholder="제목"
+                maxLength={20}
+                 />
                 <input className="border border-gray-3000 rounded p-2 h-20" 
-                type="text" name="content" placeholder="내용"/>
+                type="text" name="content" placeholder="내용"
+                maxLength={100}
+                />
                 <button  className="border border-gray-3000 rounded p-2"
                 type="submit">저장</button>
             </form>
