@@ -22,16 +22,18 @@ export default function Home() {
             alert("제목을 입력해주세요.");
             titleInput.focus();
         }
-        if(titleInput.value.lenght < 2){
-            alert("제목은 2글자 이상입니다.");
+        if(titleInput.value.length < 2){
+            alert("제목은 2글자 이상 작성해야 합니다.");
             titleInput.focus();
         }
-
-        if(titleInput.value.lenght )
 
         if(contentText.value.length === 0){
             alert("제목을 입력해주세요.");
             contentText.focus();
+        }
+
+        if(contentText.value.length <2){
+            alert("본문은 2글자 이상 작성해야 합니다.")
         }
 
         fetchApi(`/api/v1/posts`,{
