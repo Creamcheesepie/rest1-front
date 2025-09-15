@@ -121,6 +121,30 @@ export default function Home() {
 
         
     }
+    
+    const handleAddPostComment = (e: any) => {
+        const form = e.target;
+        const contentInput = form.content;
+        const contentValue = contentInput.value;
+
+        if(contentValue.length === 0) {
+            alert("내용을 입력해주세요.");
+        }
+
+        if(contentValue.length < 2){
+            alert("댓글을 2글자 이상 입력하세요.")
+        }
+
+        fetchApi(`/api/v1/posts/${postId}/comments`,{
+            method : "POST",
+            body: JSON.stringify({content : contentValue}),
+        }).then((data) => {
+            alert(data.msg);
+
+            if(postComments === null) return;
+            setPostComments([...postComments, data.data.commentDto]);
+        })
+    }
    
 
   const onModifySuccess = (id: number, contentValue: string) => {
@@ -149,7 +173,13 @@ export default function Home() {
                     <button className="border p-2 rounded" onClick={() => deletePost(post.id)}>삭제</button>
             </div>
 
+            <form className="flex flex-col gap-2" onSubmit={handleAddPostComment}>
+                <textarea name="content" className="border-2 p-2 rounded" maxLength={100}/>
+                <button type="submit" className="border-2 p-2 rounded">등록</button>
+            </form>
+
             <h2 className="p-2"> 댓글 목록</h2>
+            
 
             {postComments === null && <div>Loading</div>}
             {postComments !== null && postComments.length === 0  && <div>댓글이 없습니다.</div>}
