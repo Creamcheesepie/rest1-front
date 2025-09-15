@@ -25,19 +25,15 @@ export default function Home() {
             contentText.focus();
         }
 
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/posts`,{
+        fetchApi(`/api/v1/posts`,{
             method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-            },
             body: JSON.stringify({
                 title: titleInput.value,
                 content: contentText.value
             }),
         })
-        .then((res) => res.json)
         .then((data) => {
-            alert(data.toString);
+            alert(data.msg);
         });
     };
 
